@@ -1,24 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useMemo, useState } from "react";
 
-function App() {
+const App = () => {
+  const [src, setSrc] = useState<string>("");
+  const [copy, setCopy] = useState<boolean>(false);
+
+  const fmt: string = useMemo(() => {
+    try {
+      return JSON.stringify(JSON.parse(src), null, 4);
+    } catch (e) {
+      return "";
+    }
+  }, [src]);
+
+  const copyJSON = (): void => {
+    navigator.clipboard.writeText(fmt);
+    setCopy(true);
+
+    setTimeout(() => {
+      setCopy(false);
+    }, 3000)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="fixed w-full h-full flex flex-col md:flex-row bg-sky-900 p-3 space-y-3 md:space-y-0 md:space-x-3">
+      <textarea
+        value={src}
+        onChange={(e) => setSrc(e.target.value)}
+        className="h-1/2 md:h-auto w-full md:w-1/2 p-3 rounded"
+      />
+
+
+      <div className="relative whitespace-pre h-1/2 md:h-auto w-full md:w-1/2 text-white p-3">
+        {fmt ? (
+          <button
+            onClick={copyJSON}
+            className="absolute top-3 right-3 bg-white hover:bg-gray-50 rounded px-3 py-1 text-gray-900"
+          >
+            {copy ? "Copied" : "Copy"}
+          </button>
+        ) : null}
+        <div className="overflow-x-auto h-full w-full">
+          {fmt ? fmt : "Please enter some valid JSON."}
+        </div>
+      </div>
     </div>
   );
 }
