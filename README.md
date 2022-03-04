@@ -1,6 +1,6 @@
 # Format JSON Files
 
-This simple React app allows you to paste in JSON as a string and then copy the neatly formatted output. The whole process is client side for security and open soruce so you can host your own implementation.
+This simple React app allows you to paste in JSON as a string and then copy the neatly formatted output. The whole process is client side for security and open soruce so you can host your own implementation. You can use the app here https://sandbox.fraserbenjamin.com/json
 
 ### `npm start`
 
