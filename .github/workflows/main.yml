@@ -29,4 +29,9 @@ jobs:
             aws-region: eu-west-1
 
       - name: Copy files to the test website with the AWS CLI
-        run: aws s3 sync ./build s3://sandbox.fraserbenjamin.com/json
+        run: |
+          aws s3 rm s3://sandbox.fraserbenjamin.com/json
+          aws s3 sync ./build s3://sandbox.fraserbenjamin.com/json
+          
+      - name: Invalidate Cloudfront Cache
+        run: aws cloudfront create-invalidation --distribution-id EA9OVXGN7WPEA --paths '/json/*';
