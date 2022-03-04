@@ -31,17 +31,17 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       
-  deploy:
-    name: Upload to Amazon S3
-    runs-on: ubuntu-latest
+#   deploy:
+#     name: Upload to Amazon S3
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
+#     steps:
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: eu-west-1
 
-    - name: Copy files to the test website with the AWS CLI
-      run: aws s3 sync build s3://sandbox.fraserbenjamin.com/json
+#     - name: Copy files to the test website with the AWS CLI
+#       run: aws s3 sync build s3://sandbox.fraserbenjamin.com/json
