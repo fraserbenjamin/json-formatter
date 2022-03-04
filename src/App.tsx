@@ -40,7 +40,7 @@ const App = () => {
           </button>
         ) : null}
         <div className="overflow-x-auto h-full w-full">
-          {fmt ? fmt : "Please enter some valid JSON."}
+          {fmt ? fmt : "Add some json to see the formatted output"}
         </div>
       </div>
     </div>
