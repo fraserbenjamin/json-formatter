@@ -1,16 +1,11 @@
 import { useMemo, useState } from "react";
+import { formatJSON } from "./formatJson";
 
 const App = () => {
   const [src, setSrc] = useState<string>("");
   const [copy, setCopy] = useState<boolean>(false);
 
-  const fmt: string = useMemo(() => {
-    try {
-      return JSON.stringify(JSON.parse(src), null, 4);
-    } catch (e) {
-      return "";
-    }
-  }, [src]);
+  const fmt: string = useMemo(() => formatJSON(src), [src]);
 
   const copyJSON = (): void => {
     navigator.clipboard.writeText(fmt);
@@ -40,7 +35,7 @@ const App = () => {
           </button>
         ) : null}
         <div className="overflow-x-auto h-full w-full">
-          {fmt ? fmt : "Add some json to see the formatted output"}
+          {fmt !== "" ? fmt : "Add some json to see the formatted output"}
         </div>
       </div>
     </div>
